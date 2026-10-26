@@ -350,6 +350,16 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; display: inline-block; }
 }
 .lead { font-size: clamp(1.02rem, 2.4vw, 1.2rem); color: var(--ink-2); max-width: 58ch; }
 
+/* textos separados por línea (cada frase en su renglón) */
+.lines > span { display: block; }
+.lines--strong > span { font-weight: 700; color: var(--ink); }
+
+/* lista de actividades bajo el título de servicios */
+.acts { list-style: none; display: grid; gap: .75rem 2.4rem; margin-top: .2rem; }
+.acts li { display: flex; align-items: center; gap: .75rem; font-weight: 700; line-height: 1.3; color: var(--ink); font-size: clamp(1.05rem, 2.6vw, 1.22rem); }
+.acts li > svg { width: 1.7rem; height: 1.7rem; padding: .4rem; border-radius: 50%; background: var(--blue-600); color: #fff; stroke-width: 2.6; }
+@media (min-width: 640px) { .acts { grid-template-columns: repeat(2, max-content); } }
+
 /* ---------- 7. HERO ---------- */
 .hero {
   position: relative; overflow: clip;
@@ -421,7 +431,10 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; display: inline-block; }
 .cycle__w.is-on  { transform: none; opacity: 1; }
 .cycle__w.is-out { transform: translateY(-105%); opacity: 0; }
 
-.hero__lead { font-size: clamp(1.05rem, 2.6vw, 1.28rem); color: var(--ink-2); max-width: 36ch; }
+.hero__lead { display: grid; gap: .8rem; max-width: 36ch; }
+.hero__lead-main { display: grid; font-weight: 800; line-height: 1.25; color: var(--ink); font-size: clamp(1.2rem, 3.2vw, 1.6rem); }
+.hero__lead-main > span { display: block; }
+.hero__lead-tag { font-size: clamp(1rem, 2.5vw, 1.16rem); color: var(--ink-2); }
 .hero__cta { display: flex; flex-wrap: wrap; gap: .8rem; }
 
 /* entrada del hero (se activa cuando termina el preloader) */
@@ -695,6 +708,48 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; display: inline-block; }
   .unit { min-width: 130px; min-height: 0; }
   .unit.is-active { flex-grow: 4; }
 }
+
+/* ---------- 12b. GALERÍA DE TRABAJOS ---------- */
+.gallery { background: var(--bg-2); overflow: clip; }
+.gallery .head { margin-bottom: clamp(28px, 5vw, 48px); }
+.gallery__stage { --gh: clamp(250px, 46vw, 440px); --gpad: max(var(--gutter), calc((100vw - var(--maxw)) / 2)); }
+.gallery__track {
+  position: relative; list-style: none; display: flex; align-items: flex-start; gap: 16px;
+  overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; cursor: grab;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--gpad);
+  padding: 6px var(--gpad) 10px;
+}
+.gallery__track::-webkit-scrollbar { display: none; }
+.gallery__track.is-drag { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.shot { flex: none; scroll-snap-align: start; }
+.shot figure { margin: 0; display: grid; gap: .85rem; }
+.shot img {
+  height: var(--gh); width: auto; max-width: none; border-radius: var(--r-card);
+  box-shadow: var(--shadow-md); user-select: none; -webkit-user-drag: none; pointer-events: none;
+}
+.shot figcaption { display: grid; line-height: 1.3; }
+.shot figcaption b { font-weight: 800; }
+.shot figcaption span { font-size: .9rem; color: var(--ink-3); }
+.shot--cta {
+  width: min(78vw, 380px); height: var(--gh); display: grid; align-content: end; justify-items: start; gap: 1.2rem;
+  padding: 1.6rem; border-radius: var(--r-card); color: #fff; background: linear-gradient(140deg, var(--blue-600), var(--royal));
+}
+.shot--cta h3 { font-family: var(--f-display); font-weight: 800; font-size: clamp(2rem, 5vw, 2.7rem); line-height: .98; text-transform: uppercase; text-wrap: balance; }
+
+.gallery__bar { display: flex; align-items: center; gap: 1.4rem; margin-top: 1.5rem; }
+.gallery__progress { flex: 1; height: 3px; border-radius: 99px; background: var(--blue-200); overflow: hidden; }
+.gallery__progress i { display: block; height: 100%; border-radius: inherit; background: var(--blue-600); transform-origin: left; transform: scaleX(.3); transition: transform .35s var(--ease-out); }
+.gallery__nav { display: flex; gap: .6rem; }
+.gbtn {
+  display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%;
+  color: var(--blue-700); background: var(--surface); border: 1.5px solid var(--line-strong);
+  transition: background .3s, color .3s, border-color .3s, transform .35s var(--ease-out), opacity .3s;
+}
+.gbtn svg { width: 1.3rem; height: 1.3rem; }
+.gbtn__flip { transform: scaleX(-1); }
+.gbtn:hover:not(:disabled) { background: var(--blue-600); color: #fff; border-color: var(--blue-600); }
+.gbtn:active:not(:disabled) { transform: scale(.94); }
+.gbtn:disabled { opacity: .4; cursor: default; }
 
 /* ---------- 13. ALIANZAS + CLIENTES ---------- */
 .alliances { background: var(--surface); overflow: clip; }

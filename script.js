@@ -831,6 +831,78 @@
   }
 
   /* ---------------------------------------------------------------
+     15. Galería de trabajos: arrastre con mouse, deslizar con el dedo, flechas
+     --------------------------------------------------------------- */
+  function initGallery() {
+    const track = $('#galleryTrack');
+    if (!track) return;
+    const fill = $('#galleryFill');
+    const prev = $('#galleryPrev');
+    const next = $('#galleryNext');
+    const items = $$('.shot', track);
+    const behavior = reduced ? 'auto' : 'smooth';
+
+    const pad = () => parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
+    const targets = () => items.map((it) => Math.max(0, it.offsetLeft - pad()));
+    const maxLeft = () => track.scrollWidth - track.clientWidth;
+
+    const update = () => {
+      const max = maxLeft();
+      const visible = track.clientWidth / track.scrollWidth;
+      const p = max > 0 ? track.scrollLeft / max : 0;
+      fill.style.transform = `scaleX(${(visible + p * (1 - visible)).toFixed(4)})`;
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= max - 4;
+    };
+
+    let ticking = false;
+    track.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { update(); ticking = false; });
+    }, { passive: true });
+    new ResizeObserver(update).observe(track);
+    update();
+
+    // flechas: saltan a la foto anterior o siguiente
+    const go = (dir) => {
+      const left = track.scrollLeft;
+      const t = targets();
+      const to = dir > 0
+        ? t.find((x) => x > left + 8) ?? maxLeft()
+        : [...t].reverse().find((x) => x < left - 8) ?? 0;
+      track.scrollTo({ left: Math.min(to, maxLeft()), behavior });
+    };
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+
+    // arrastre con mouse (en pantallas táctiles el deslizado es nativo)
+    let down = false, moved = false, startX = 0, startLeft = 0;
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+    });
+    window.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 5) { moved = true; track.classList.add('is-drag'); }
+      if (moved) track.scrollLeft = startLeft - dx;
+    });
+    window.addEventListener('pointerup', () => {
+      if (!down) return;
+      down = false;
+      if (!moved) return;
+      track.classList.remove('is-drag');
+      const t = targets();
+      const cur = track.scrollLeft;
+      const nearest = t.reduce((a, b) => (Math.abs(b - cur) < Math.abs(a - cur) ? b : a), t[0]);
+      track.scrollTo({ left: Math.min(nearest, maxLeft()), behavior });
+    });
+    // si se arrastró, no se activa el botón que quedó debajo del cursor
+    track.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+  }
+
+  /* ---------------------------------------------------------------
      ARRANQUE
      --------------------------------------------------------------- */
   const year = $('#year');
@@ -844,6 +916,7 @@
   initPointerFx();
   initTilt();
   initFleet();
+  initGallery();
   initMap();
   initFaq();
   initForm();

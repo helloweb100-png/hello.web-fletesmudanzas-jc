@@ -213,10 +213,13 @@
               <span class="cycle__w is-on">tu hogar.</span>
               <span class="cycle__w">tu negocio.</span>
               <span class="cycle__w">tu mercancía.</span>
-              <span class="cycle__w">tu historia.</span>
+              <span class="cycle__w">historias.</span>
             </span></span>
           </h1>
-          <p class="hero__lead" data-hero="4">Mudanzas y fletes locales y foráneos en todo México. Cuidamos tu carga como si fuera nuestra.</p>
+          <p class="hero__lead" data-hero="4">
+            <span class="hero__lead-main"><span>Mudanzas y Fletes</span><span>Locales y Foráneos</span><span>en todo México</span></span>
+            <span class="hero__lead-tag">Cuidamos tu carga como si fuera nuestra</span>
+          </p>
           <div class="hero__cta" data-hero="5">
             <a class="btn btn--primary btn--lg" href="#cotizar" data-magnetic>
               <span>Estoy listo para cotizar</span>
@@ -279,7 +282,12 @@
       <div class="wrap">
         <header class="head">
           <h2 class="h2" id="servicios-title" data-split>Lo que más te importa, en buenas manos.</h2>
-          <p class="lead" data-reveal>Mudanzas de casa, fletes de mercancía y logística para empresas. Locales o foráneos, llegamos hasta donde nos necesites.</p>
+          <ul class="acts" data-reveal>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Mudanzas de Casa y Oficina</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Fletes de Mercancías</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Logística a Empresas</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Servicios Locales y Foráneos</li>
+          </ul>
         </header>
 
         <div class="bento">
@@ -317,7 +325,7 @@
             <div class="tile__body">
               <span class="chip"><svg class="i" aria-hidden="true"><use href="#i-package"/></svg></span>
               <h3>Fletes de mercancía</h3>
-              <p>Entregas a tiendas, bodegas y obras con puntualidad. Tu producto llega completo y a tiempo.</p>
+              <p class="lines"><span>Entregas a Tiendas y Bodegas</span><span>Tu producto completo y a tiempo</span></p>
               <a class="link" href="https://wa.me/522299198349" data-wa="Hola, quiero cotizar un flete de mercancía." target="_blank" rel="noopener">
                 Quiero un flete <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
               </a>
@@ -351,7 +359,7 @@
           <div class="zoom__shade" id="zoomShade"></div>
         </div>
         <div class="zoom__copy wrap" id="zoomCopy">
-          <h2 class="zoom__title" id="zoom-title">No movemos cosas.<br>Movemos historias.</h2>
+          <h2 class="zoom__title" id="zoom-title">No trasladamos cosas.<br>Trasladamos historias.</h2>
           <p class="zoom__text">Detrás de cada caja hay un hogar, un negocio, un nuevo comienzo. Por eso cuidamos cada traslado como si fuera nuestro.</p>
           <a class="btn btn--light btn--lg" href="https://wa.me/522299198349" data-wa="Hola, quiero contarles sobre mi traslado." target="_blank" rel="noopener" data-magnetic>
             <span>Clic aquí y cuéntanos tu traslado</span>
@@ -471,12 +479,69 @@
       </div>
     </section>
 
+    <!-- ============ GALERÍA DE TRABAJOS ============
+         Para agregar una foto: copia un bloque <li class="shot"> completo, cambia src, width, height, alt y los textos.
+         El carrusel se ajusta solo al ancho de cada imagen. Deja el bloque "shot--cta" al final. -->
+    <section class="section gallery" id="trabajos" aria-labelledby="trabajos-title">
+      <div class="wrap">
+        <header class="head">
+          <h2 class="h2" id="trabajos-title" data-split>Nuestro trabajo, a la vista.</h2>
+          <p class="lead" data-reveal>Fotos reales de nuestras unidades y traslados. Así sabes con quién estás trabajando.</p>
+        </header>
+      </div>
+
+      <div class="gallery__stage" data-reveal>
+        <ul class="gallery__track" id="galleryTrack" tabindex="0" aria-label="Galería de trabajos. Desliza para ver más fotos.">
+          <li class="shot">
+            <figure>
+              <img src="assets/flete-pickup.webp" width="1400" height="1050" loading="lazy" decoding="async" draggable="false"
+                   alt="Camioneta de caja seca de Fletes y Mudanzas JC estacionada frente a una ferretería bajo un cielo nublado">
+              <figcaption><b>Camioneta de caja seca</b><span>Fletes de mercancía</span></figcaption>
+            </figure>
+          </li>
+          <li class="shot">
+            <figure>
+              <img src="assets/hero-jmc.webp" width="1100" height="749" loading="lazy" decoding="async" draggable="false"
+                   alt="Camión JMC de caja seca de Fletes y Mudanzas JC estacionado en una calle de Veracruz">
+              <figcaption><b>Camión JMC de caja seca</b><span>Mudanzas locales</span></figcaption>
+            </figure>
+          </li>
+          <li class="shot">
+            <figure>
+              <img src="assets/traslado-jac.webp" width="1920" height="865" loading="lazy" decoding="async" draggable="false"
+                   alt="Camión JAC de caja seca de Fletes y Mudanzas JC frente a un edificio de departamentos">
+              <figcaption><b>Camión JAC de caja seca</b><span>Mudanza de hogar</span></figcaption>
+            </figure>
+          </li>
+          <li class="shot shot--cta">
+            <h3>Tu traslado puede ser el siguiente.</h3>
+            <a class="btn btn--light btn--lg" href="https://wa.me/522299198349" data-wa="Hola, vi su galería de trabajos y quiero cotizar mi traslado." target="_blank" rel="noopener">
+              <span>Quiero ser el siguiente</span>
+              <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="wrap gallery__bar">
+        <div class="gallery__progress" aria-hidden="true"><i id="galleryFill"></i></div>
+        <div class="gallery__nav">
+          <button type="button" class="gbtn" id="galleryPrev" aria-label="Foto anterior" disabled>
+            <svg class="i gbtn__flip" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </button>
+          <button type="button" class="gbtn" id="galleryNext" aria-label="Foto siguiente">
+            <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ ALIANZAS LOGÍSTICAS + CLIENTES ============ -->
     <section class="section alliances" id="alianzas" aria-labelledby="alianzas-title">
       <div class="wrap alliances__grid">
         <div class="alliances__copy">
-          <h2 class="h2" id="alianzas-title" data-split>Tu empresa vende. Nosotros llegamos.</h2>
-          <p class="lead" data-reveal>Programamos las entregas a tus clientes y nos volvemos una extensión de tu operación, con un solo contacto y factura por cada servicio.</p>
+          <h2 class="h2" id="alianzas-title" data-split>Tu empresa vende.<br>Nosotros lo entregamos.</h2>
+          <p class="lead lines lines--strong" data-reveal><span>Somos una extensión de tu negocio</span><span>Programación directa con clientes</span><span>Monitoreo en tiempo real GPS</span></p>
           <ul class="ticks" data-reveal>
             <li><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg><span><b>Entregas programadas</b>Tus clientes reciben en la fecha prometida.</span></li>
             <li><svg class="i" aria-hidden="true"><use href="#i-users"/></svg><span><b>Una sola persona de contacto</b>Trato directo, sin intermediarios.</span></li>
