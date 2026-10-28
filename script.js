@@ -810,11 +810,15 @@
      14. Detalles finales: marquesina reactiva, botón flotante, año
      --------------------------------------------------------------- */
   function initMarqueeSpeed() {
-    const track = $('.marquee__track');
-    if (!lenis || !track || reduced) return;
-    const anim = track.getAnimations()[0];
-    if (!anim) return;
-    lenis.on('scroll', ({ velocity }) => { anim.playbackRate = 1 + Math.min(5, Math.abs(velocity) * 0.4); });
+    // índice de cada logo para la entrada en cascada (CSS lo lee como --i)
+    $$('.marquee__list').forEach((list) => $$('li', list).forEach((li, i) => li.style.setProperty('--i', i)));
+
+    const anims = $$('.marquee__track').map((t) => t.getAnimations()[0]).filter(Boolean);
+    if (!lenis || !anims.length || reduced) return;
+    lenis.on('scroll', ({ velocity }) => {
+      const rate = 1 + Math.min(5, Math.abs(velocity) * 0.4);
+      anims.forEach((a) => { a.playbackRate = rate; });
+    });
   }
 
   function initFab() {

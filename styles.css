@@ -783,22 +783,38 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; display: inline-block; }
 
 @media (min-width: 960px) { .alliances__grid { grid-template-columns: 1.05fr .95fr; gap: 80px; } }
 
-.clients { margin-top: clamp(56px, 9vw, 104px); padding-block: 1.8rem; border-block: 1px solid var(--line); }
-.clients__label { margin: 0 var(--gutter) 1.1rem; text-align: center; font-weight: 700; font-size: .92rem; color: var(--ink-3); }
+.clients {
+  --logo-h: clamp(104px, 12vw, 150px);
+  --logo-gap: clamp(14px, 2vw, 28px);
+  margin-top: clamp(56px, 9vw, 104px); padding-block: clamp(1.8rem, 4vw, 3rem); border-block: 1px solid var(--line);
+}
+.clients__label { margin: 0 var(--gutter) .6rem; text-align: center; font-weight: 700; font-size: clamp(.95rem, 1.6vw, 1.1rem); color: var(--ink-2); }
+.clients__more { margin: .6rem var(--gutter) 0; text-align: center; font-size: .92rem; color: var(--ink-3); }
+.clients__more b { color: var(--ink-2); font-weight: 700; }
+
+/* dos filas de logos en sentido contrario; los logos van tal cual, sin filtros */
 .marquee {
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  overflow: hidden; padding-block: 16px 34px; margin-bottom: -16px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
-.marquee__track { display: flex; width: max-content; animation: marquee 80s linear infinite; }
+.marquee__track { display: flex; width: max-content; animation: marquee 75s linear infinite; }
+.marquee--rev .marquee__track { animation-direction: reverse; animation-duration: 90s; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
-.marquee__list { display: flex; list-style: none; }
+.marquee__list { display: flex; gap: var(--logo-gap); padding-right: var(--logo-gap); list-style: none; }
 .marquee__list li {
-  display: flex; align-items: center; white-space: nowrap;
-  font-family: var(--f-display); font-weight: 700; text-transform: uppercase; letter-spacing: .02em;
-  font-size: clamp(1.7rem, 4vw, 2.5rem); color: var(--ink-3);
+  position: relative; flex: none; overflow: hidden;
+  border: 1px solid var(--line); border-radius: var(--r-card); background: #fff; box-shadow: var(--shadow-sm);
+  transition: transform .55s var(--ease-out), box-shadow .55s var(--ease-out);
 }
-.marquee__list li::after { content: ""; width: 1px; height: .9em; margin-inline: clamp(1.4rem, 3vw, 2.4rem); background: var(--line-strong); }
+.marquee__list img { display: block; height: calc(var(--logo-h) - 2px); width: auto; max-width: none; }
+@media (hover: hover) {
+  .marquee__list li:hover { z-index: 1; transform: translateY(-8px) scale(1.07); box-shadow: var(--shadow-md); }
+}
+/* entrada: los logos suben en cascada cuando la fila se revela */
+.js .marquee:not(.is-in) .marquee__list li { opacity: 0; }
+.marquee.is-in .marquee__list li { animation: logo-in 1s var(--ease-out) backwards; animation-delay: calc(min(var(--i, 0), 9) * 80ms); }
+@keyframes logo-in { from { opacity: 0; transform: translateY(26px) scale(.92); } }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ---------- 14. COBERTURA ---------- */
@@ -1076,5 +1092,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; display: inline-block; }
   .road__truck { transform: translateX(60vw); }
   .marquee { overflow-x: auto; }
   .marquee__track { animation: none; }
+  .marquee__list[aria-hidden="true"] { display: none; }
+  .js .marquee:not(.is-in) .marquee__list li { opacity: 1; }
   .manifesto__text.is-words .mw { opacity: 1; }
 }
